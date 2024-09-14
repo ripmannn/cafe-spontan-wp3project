@@ -16,3 +16,5 @@ Aplikasi untuk memesan makanan di cafe spontan menggunakan website
 
 - Tampilan Customer
 ![Alt text](https://github.com/ripmannn/cafe-spontan-wp3project/blob/main/assets/preview/cust_cafe_spontan.png)
+
+Terima kasih kepada @ahmadbintang74, @ahmadnurazril05, Amar, Arya atas kontribusinya!
