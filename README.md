@@ -9,6 +9,13 @@ Aplikasi untuk memesan makanan di cafe spontan menggunakan website
 -  mengedit makanan dan stok
 -  menambahkan Menu dan menghapus
 
+# Kontributor
+
+- [@Ahmad Bintang](https://github.com/ahmadbintang74) 
+- [@Ahmad Nur Azriel](https://github.com/ahmadnurazril05) 
+- Muammar Fahrur Rahman
+- Arya Nur Aditya
+
 
 # Gambar
 - Tampilan Admin
@@ -17,4 +24,3 @@ Aplikasi untuk memesan makanan di cafe spontan menggunakan website
 - Tampilan Customer
 ![Alt text](https://github.com/ripmannn/cafe-spontan-wp3project/blob/main/assets/preview/cust_cafe_spontan.png)
 
-Terima kasih kepada @ahmadbintang74, @ahmadnurazril05, Amar, Arya atas kontribusinya!
