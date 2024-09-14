@@ -1,0 +1,29 @@
+.top-btn {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	background-color: black;
+	bottom: 16px;
+	right: 12px;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 14px;
+	box-shadow: 0px 2px 6px white;
+	color: #fcc309;
+	font-size: 28px;
+	text-decoration: none;
+	pointer-events: none;
+	transition: all 0.4s;
+	opacity: 0;
+}
+
+.top-btn.active {
+	color: #fcc309;
+	bottom: 32px;
+	pointer-events: auto;
+	opacity: 1;
+}
+
+
