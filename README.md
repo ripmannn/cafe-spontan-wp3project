@@ -13,8 +13,9 @@ Aplikasi untuk memesan makanan di cafe spontan menggunakan website
 
 - [@Ahmad Bintang](https://github.com/ahmadbintang74) 
 - [@Ahmad Nur Azriel](https://github.com/ahmadnurazril05) 
-- Muammar Fahrur Rahman
-- Arya Nur Aditya
+- [@Muammar Fahrur Rahman](https://github.com/amarr24) 
+- [@Arya Nur Aditya](https://github.com/AryaAditya33) 
+
 
 
 # Gambar
