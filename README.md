@@ -20,8 +20,8 @@ Aplikasi untuk memesan makanan di cafe spontan menggunakan website
 
 # Gambar
 - Tampilan Admin
-![Alt text](https://github.com/ripmannn/cafe-spontan-wp3project/blob/main/assets/preview/cafespontan new2.png)
+![Alt text](https://github.com/ripmannn/cafe-spontan-wp3project/blob/main/assets/preview/cafespontannew2.png)
 
 - Tampilan Customer
-![Alt text](https://github.com/ripmannn/cafe-spontan-wp3project/blob/main/assets/preview/cafe spontan new.png)
+![Alt text](https://github.com/ripmannn/cafe-spontan-wp3project/blob/main/assets/preview/cafespontannew.png)
 
