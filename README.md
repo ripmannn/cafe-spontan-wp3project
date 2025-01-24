@@ -1,4 +1,4 @@
-# Cafe Spontan uuhhuy
+# Cafe Spontan
 
 
 Aplikasi untuk memesan makanan di cafe spontan menggunakan website
