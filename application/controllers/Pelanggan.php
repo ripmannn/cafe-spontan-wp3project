@@ -14,7 +14,7 @@ class Pelanggan extends CI_Controller
     public function index()
     {
         $this->db->select('*')->from('pelanggan');
-        $this->db->order_by('nama', 'ASC');
+        $this->db->order_by('id_pelanggan', 'ASC');
 
         $pelanggan = $this->db->get()->result_array();
 

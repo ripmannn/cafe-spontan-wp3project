@@ -18,19 +18,19 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col mb-3">
-                                <label class="form-label">Nama Pelanggan</label>
-                                <input type="text" name="nama" class="form-control" placeholder="Nama Pelanggan" pattern="[a-zA-Z\s]+" required>
+                                <label class="form-label" for="nama">Nama Pelanggan</label>
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Pelanggan" pattern="[a-zA-Z\s]+" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">Alamat</label>
-                                <input type="text" name="alamat" class="form-control" placeholder="Alamat" value="Jakarta" required>
+                                <label class="form-label" for="alamat">Alamat</label>
+                                <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Alamat" value="Jakarta" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">No Telp (WA)</label>
+                                <label class="form-label" for="telp">No Telp (WA)</label>
                                 <input type="number" id="telp" name="telp" class="form-control" placeholder="Telpon" required>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<div class="card">
+<div class="card p-3">
     <h5 class="card-header">Pelanggan</h5>
     <div class="table-responsive text-nowrap">
         <table id="myTable" class="table">

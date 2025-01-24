@@ -1,7 +1,7 @@
 <?= $this->session->flashdata('pesan') ?>
 
-<div class="row" >
-    <div class="col-md-4">
+<div class="row">
+    <div class="col-md-12">
         <!-- pemilihan produk -->
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -10,24 +10,31 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nama Pelanggan</label>
-                    <input type="text" class="form-control" name="nama" value="<?= $namapelanggan ?>" readonly>
+                    <label class="form-label" for="name">Nama Pelanggan</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<?= $namapelanggan ?>" readonly
+                        autocomplete="name">
                 </div>
                 <form action="<?= base_url('penjualan/addtemp') ?>" method="post">
-                    <input type="hidden" name="id_pelanggan" value="<?= $id_pelanggan ?>" id="">
+                    <input type="hidden" name="id_pelanggan" value="<?= $id_pelanggan ?>">
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Produk</label>
-                        <input type="hidden" name="kode_penjualan" value="<?= $nota ?>">
+                        <span class="form-label">Produk</span>
+                        <input type="hidden" name="kode_penjualan" id="kode_penjualan" value="<?= $nota ?>">
                         <small class=" float-end badge bg-primary">Pilih Produk</small>
                         <select name="id_produk" class="form-control">
                             <?php foreach ($produk as $p) { ?>
-                                <option value="<?= $p['id_produk'] ?>"> <?= $p['nama'] ?> - <?= $p['kode_produk'] ?> (<?= $p['stok'] ?>) (Rp.<?= number_format($p['harga']) ?>) </option>
+                                
+                                <option value="<?php echo $p['id_produk'] ?>">
+                                    <?php echo $p['nama'] ?> - <?php echo $p['kode_produk'] ?>
+                                    (<?php echo $p['stok'] ?>)
+                                    (Rp.<?php echo number_format($p['harga'], 0, ',', '.') ?>)
+                                </option>
                             <?php } ?>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-company">Jumlah</label>
-                        <input type="number" class="form-control" name="jumlah" placeholder="Jumlah Yang Di Jual" required>
+                        <label class="form-label" for="jumlah">Jumlah</label>
+                        <input type="number" class="form-control" id="jumlah" name="jumlah"
+                            placeholder="Jumlah Yang Di Jual" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Tambah Keranjang</button>
@@ -36,7 +43,7 @@
         </div>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-12">
         <!-- detail apa saaj yg di belil -->
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -61,7 +68,9 @@
                             <?php $total = 0;
                             $cek = 0;
                             $no = 1;
-                            foreach ($temp as $d) {  ?>
+                            foreach ($temp as $d) { ?>
+                                <?php
+                                ?>
                                 <tr>
                                     <td><?= $no ?></td>
                                     <td><?= $d['kode_produk'] ?></td>
@@ -79,15 +88,17 @@
                                     <td>Rp.<?= number_format($d['harga']) ?></td>
                                     <td>Rp.<?= number_format($d['jumlah'] * $d['harga']) ?></td>
                                     <td>
-                                        <a onclick="return confirm('Apakah anda yakin menghapus Produk dari Keranjang Ini?')" href="<?= base_url('penjualan/hapus_temp/' . $d['id_temp']) ?>" class="btn-sm btn-danger">Hapus</a>
+                                        <a onclick="return confirm('Apakah anda yakin menghapus Produk dari Keranjang Ini?')"
+                                            href="<?= base_url('penjualan/hapus_temp/' . $d['id_temp']) ?>"
+                                            class="btn-sm btn-danger">Hapus</a>
                                     </td>
                                 </tr>
-                            <?php $total = $total + $d['jumlah'] * $d['harga'];
+                                <?php $total = $total + $d['jumlah'] * $d['harga'];
                                 $no++;
                             } ?>
                             <tr>
                                 <td class="fw-bolder" colspan=5>Total Harga</td>
-                                <td class="fw-bolder" >Rp. <?= number_format($total); ?></td>
+                                <td class="fw-bolder">Rp. <?= number_format($total); ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -103,6 +114,5 @@
             </div>
         </div>
     </div>
-    
-</div>
 
+</div>

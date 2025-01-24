@@ -118,41 +118,66 @@ class Produk extends CI_Controller
     {
         // Memeriksa apakah ada gambar yang diunggah
         if (!empty($_FILES['gambar']['name'])) {
-            $config['upload_path'] = './assets/gambar'; // Tentukan direktori tempat Anda ingin menyimpan gambar
+            $config['upload_path'] = './assets/gambar'; // Direktori penyimpanan gambar
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $config['max_size'] = 2048; // Batas maksimum ukuran file (dalam kilobita)
+            $config['max_size'] = 2048; // Ukuran maksimum file (KB)
             $config['overwrite'] = TRUE;
-
+    
             $this->load->library('upload', $config);
-
+    
             if (!$this->upload->do_upload('gambar')) {
                 $error = $this->upload->display_errors();
-                // Handle kesalahan unggah, misalnya:
+                // Handle kesalahan unggah
                 $this->session->set_flashdata('pesan', '<div class="alert alert-danger">' . $error . '</div>');
                 redirect('produk');
             } else {
                 $data['gambar'] = $this->upload->data('file_name');
             }
         }
-
+    
+        // Mengambil input dari form
         $data['nama'] = $this->input->post('nama');
         $data['kode_produk'] = $this->input->post('kode_produk');
         $data['stok'] = $this->input->post('stok');
-        $data['harga'] = $this->input->post('harga');
         $data['jenis'] = $this->input->post('jenis');
         $data['keterangan'] = $this->input->post('keterangan');
-
+        $promo = $this->input->post('promo');
+        $harga_manual = $this->input->post('harga'); // Harga yang diinput admin secara manual
+        $data['promo'] = $promo;
+    
         $where = array('id_produk' => $this->input->post('id_produk'));
-
-        // Memperbarui data produk
+    
+        if ($promo == 1) {
+            $produk = $this->db->get_where('produk', $where)->row();
+    
+            if (empty($produk->harga_awal) || $produk->harga != $harga_manual) {
+                $data['harga_awal'] = $harga_manual;
+            }
+    
+            $data['harga'] = $data['harga_awal'] * 0.8; // 20% diskon
+        } else {
+            $produk = $this->db->get_where('produk', $where)->row();
+    
+            if (!empty($produk->harga_awal)) {
+                $data['harga'] = $produk->harga_awal;
+                $data['harga_awal'] = NULL;
+            } else {
+                $data['harga'] = $harga_manual;
+            }
+        }
+    
+        // Memperbarui data produk di database
         $this->db->update('produk', $data, $where);
-
+    
+        // Flash message sukses
         $this->session->set_flashdata('pesan', '
         <div class="alert alert-primary alert-dismissible" role="alert">Produk Berhasil Diupdate !!!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>');
         redirect('produk');
     }
+
+
 
     public function print()
     {

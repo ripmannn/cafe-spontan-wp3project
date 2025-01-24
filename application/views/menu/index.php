@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <!-- Basic -->
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -51,8 +51,24 @@
             padding: 5px;
             padding-left: 5px;
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+
+            transform: translateX(-70%);
+        }
+
+        @media screen and (max-width: 600px) {
+            .dropdown-menu.dropdown-menu-start.dropdown-menu-lg {
+
+
+                transform: translateX(-53%);
+            }
+        }
+
+        @media screen and (min-width: 601px) and (max-width: 900px) {
+            .dropdown-menu.dropdown-menu-start.dropdown-menu-lg {
+
+
+                transform: translateX(-53%);
+            }
         }
 
         .dropdown-menu.dropdown-menu-start.dropdown-menu-lg .dropdown-item:hover {
@@ -64,6 +80,14 @@
             display: none !important;
         }
     </style>
+
+    <style>
+        .my-title {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+    </style>
+
 
 </head>
 
@@ -82,7 +106,9 @@
                         </span>
                     </a>
 
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                         <span class=""> </span>
                     </button>
 
@@ -95,18 +121,20 @@
                             if ($this->session->userdata('pelanggan')) {
                                 $nama_pelanggan = $this->session->userdata('pelanggan')['nama'];
                                 // Jika session 'pelanggan' sudah ada
-                            ?>
-                                <a href="#" style="cursor: not-allowed;" class="user_link" data-toggle="modal" data-target="">
-                                    <span class="badge rounded-pill text-dark bg-warning text-capitalize"><?= $nama_pelanggan ?></span>
+                                ?>
+                                <a href="#" style="cursor: not-allowed;" class="user_link" data-toggle="modal"
+                                    data-target="">
+                                    <span
+                                        class="badge rounded-pill text-dark bg-warning text-capitalize"><?= $nama_pelanggan ?></span>
                                 </a>
-                            <?php
+                                <?php
                             } else {
                                 // Jika session 'pelanggan' belum ada
-                            ?>
-                                <a href="#" class="user_link" data-toggle="modal" data-target="#userModal">
+                                ?>
+                                <a href="#" class="user_link" data-toggle="modal" data-target="#userModal" title="user">
                                     <i style="font-size: 30px; color: white; " class="fa fa-user" aria-hidden="true"></i>
                                 </a>
-                            <?php
+                                <?php
                             }
                             ?>
 
@@ -121,55 +149,106 @@
 
                             ?>
                             <div class="dropdown">
-                                <a class="cart_link dropdown-toggle" href="#" role="button" id="cartDropdown" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                    <i style="font-size: 30px; color: white; " class='bx bxs-cart'></i><span class="badge badge-warning text-dark"><?= $jml_item ?></span>
+                                <a class="cart_link dropdown-toggle" role="button" id="cartDropdown"
+                                    data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                    <i style="font-size: 30px; color: white; " class='bx bxs-cart'></i><span
+                                        class="badge badge-warning text-dark"><?= $jml_item ?></span>
                                 </a>
 
-                                <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg" aria-labelledby="cartDropdown">
+                                <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg"
+                                    aria-labelledby="cartDropdown">
                                     <?php if (empty($keranjang)) { ?>
-                                        <p class="dropdown-item">Keranjang Belanja Kosong</p>
+                                        <li class="dropdown-item">Keranjang Belanja Kosong</li>
 
-                                        <?php } else {
+                                    <?php } else {
                                         foreach ($keranjang as $k) {
-                                            $barang = $this->db->select('gambar')->from('produk')->where('id_produk', $k['id'])->get()->row_array();
 
-                                        ?>
+                                            $barang = null;
+                                            foreach ($produk as $menu) {
+                                                if ($menu['id_produk'] == $k['id']) {
+                                                    $barang = $menu;
+                                                    break;
+                                                }
+                                            }
+                                            
+                                           if($barang){ ?>
                                             <li><?php
-                                                echo form_open('pesanan_produk/simpan');
-                                                echo form_hidden('id_produk[]', $k['id']);
-                                                echo form_hidden('nama_produk[]', $k['name']);
-                                                echo form_hidden('jumlah[]', $k['qty']);
-                                                echo form_hidden('harga[]', $k['price']);
-                                                echo form_hidden('sub_total[]', $k['subtotal']);
-                                                echo form_hidden('total[]', $this->cart->total());
-                                                echo form_hidden('nama_pelanggan', $this->session->userdata('pelanggan')['nama']);
-                                                ?>
+                                            echo form_open('pesanan_produk/simpan', ['id' => 'pesanForm']);
+                                            echo form_hidden('id_produk[]', $k['id']);
+
+                                            echo form_hidden('nama_produk[]', $k['name']);
+                                            echo form_hidden('jumlah[]', $k['qty']);
+                                            echo form_hidden('harga[]', $k['price']);
+                                            echo form_hidden('sub_total[]', $k['subtotal']);
+                                            echo form_hidden('total[]', $this->cart->total());
+                                            echo form_hidden('nama_pelanggan', $this->session->userdata('pelanggan')['nama']);
+                                            echo form_hidden('id_pelanggan', $this->session->userdata('pelanggan')['id_pelanggan']);
+
+                                            ?>
                                                 <div class="media">
-                                                    <img style="width: 100px; border-radius: 50%; " class="img-size-50 mr-3 img-circle" src="<?= base_url('assets/gambar/' . $barang['gambar']) ?>" alt="">
+                                                    <img style="width: 100px; border-radius: 50%; "
+                                                        class="img-size-50 mr-3 img-circle"
+                                                        src="<?= base_url('assets/gambar/' . $barang['gambar']) ?>" alt="">
                                                     <div class="media-body">
-                                                        <p style="margin-bottom: 0;" class="dropdown-item-title font-weight-bold"><?= $k['name'] ?></p>
-                                                        <p style="margin-bottom: 0;" class="text-sm">Rp.<?= number_format($k['price']) ?></p>
-                                                        <p style="margin-bottom: 0;" class="text-sm"><?= $k['qty'] ?> x Rp.<?= number_format($k['price']) ?></p>
-                                                        <p style="margin-bottom: 0;" class="text-sm">Rp.<?= number_format($k['subtotal']); ?></p>
+                                                        <p style="margin-bottom: 0;"
+                                                            class="dropdown-item-title font-weight-bold"><?= $k['name'] ?></p>
+                                                        <p style="margin-bottom: 0;" class="text-sm">
+                                                            Rp.<?= number_format($k['price']) ?></p>
+                                                        <p style="margin-bottom: 0;" class="text-sm"><?= $k['qty'] ?> x
+                                                            Rp.<?= number_format($k['price']) ?></p>
+                                                        <p style="margin-bottom: 0;" class="text-sm">
+                                                            Rp.<?= number_format($k['subtotal']); ?></p>
                                                     </div>
-                                                    <a href="<?= base_url('keranjang/delete/' . $k['rowid']) ?>" class="btn btn-danger"><i class='bx bx-trash'></i></a>
+                                                    <a href="<?= base_url('keranjang/delete/' . $k['rowid']) ?>"
+                                                        class="btn btn-danger deleteCartBtn" title="Delete item"><i
+                                                            class='bx bx-trash'></i></a>
                                                 </div>
                                             </li>
-                                            <div class="dropdown-divider"></div>
-                                        <?php } ?>
-                                        <div class="grand-total">
-                                            <tr>
-                                                <td colspan="2"> </td>
-                                                <td><strong class="h2">Total:</strong></td>
-                                                <td><strong class="h2">Rp. <?php echo number_format($this->cart->total());  ?></strong></td>
-                                            </tr>
+                                            <li class="dropdown-divider"></li>
+                                            <?php
+                                           }
+                                        } ?>
+                                        <li>
+                                            <div class="grand-total">
+                                                <tr>
+                                                    <td colspan="2"> </td>
+                                                    <td><strong class="h2">Total:</strong></td>
+                                                    <td><strong class="h2">Rp.
+                                                            <?php echo number_format($this->cart->total()); ?></strong></td>
+                                                </tr>
 
-                                        </div>
-                                        <div class="dropdown-divider"></div>
+                                            </div>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
                                         <!-- <a style="margin-left: 0;  width: 100%; " href="" class=" text-center btn btn-primary mb-3">Lihat dan update pesanan</a> -->
-                                        <button onclick="return cekPesanan()" style="margin-left: 0; width: 100%;" href="" type="submit" class=" text-center btn btn-success">Pesan</button>
+                                        <li>
+
+                                            <button style="margin-left: 0; width: 100%;" type="button"
+                                                class="text-center btn btn-success mb-2"
+                                                onclick="cekPesanan();">Pesan</button>
+                                        </li>
+
+
+                                        <li>
+                                            <button style="margin-left: 0; width: 100%;" type="button"
+                                                class="text-center btn btn-primary" id="payButton"
+                                                onclick="showConfirmation();">Bayar
+                                                dengan Midtrans</button>
+                                        </li>
+                                        <li>
+                                            <button style="margin-left: 0; width: 100%; display: none; color:white;"
+                                                type="button" class="text-center btn btn-info" id="retryButton">Lanjutkan
+                                                Pembayaran</button>
+                                        </li>
+                                        <li>
+                                            <button style="margin-left: 0; width: 100%; display: none;" type="button"
+                                                class="text-center mt-2 btn btn-danger" id="buttonClear">Transaksi
+                                                ulang</button>
+                                        </li>
+
                                         <?php echo form_close(); ?>
-                                    <?php } ?>
+                                        <?php
+                                    } ?>
                                 </ul>
 
                             </div>
@@ -223,17 +302,22 @@
                 <li class="active" data-filter="*">All</li>
                 <li data-filter=".makanan">Makanan</li>
                 <li data-filter=".minuman">Minuman</li>
+                <li data-filter=".katering">Katering</li>
 
             </ul>
 
             <div class="filters-content">
                 <div class="row grid">
                     <?php foreach ($produk as $row) { ?>
-                        <div class="col-sm-6 col-lg-4 all <?php if ($row['jenis'] == 'makanan') {
-                                                                echo 'makanan';
-                                                            } else {
-                                                                echo 'minuman';
-                                                            } ?>">
+                        <div class="col-sm-6 col-lg-4 all <?php
+                            if ($row['jenis'] == 'makanan') {
+                                echo 'makanan';
+                            } elseif ($row['jenis'] == 'minuman') {
+                                echo 'minuman';
+                            } else {
+                                echo 'katering';  
+                            }
+                        ?>">
                             <div class="box">
                                 <?php
                                 echo form_open('keranjang/add');
@@ -242,7 +326,6 @@
                                 echo form_hidden('price', $row['harga']);
                                 echo form_hidden('name', $row['nama']);
                                 echo form_hidden('redirect_page', str_replace('index.php/', '', current_url()));
-
                                 ?>
                                 <div>
                                     <div class="img-box">
@@ -254,6 +337,9 @@
                                             <?php if ($row['new'] == 'baru') {
                                                 echo '<span class="badge text-bg-success">Menu Baru</span>';
                                             } ?>
+                                            <?php if (isset($row['promo']) && $row['promo'] == 1): ?>
+                                                <span class="badge badge-info text-white">PROMO</span>
+                                            <?php endif; ?>
 
                                         </h5>
                                         <p>
@@ -261,20 +347,25 @@
                                         </p>
                                         <div class="options">
                                             <h6>
-                                                <?php if ($row['stok'] > 0) : ?>
-                                                    Rp.<?= number_format($row['harga']) ?>
-                                                <?php else : ?>
+                                                <?php if ($row['stok'] > 0): ?>
+                                                    <?php if (isset($row['promo']) && $row['promo'] == 1 && isset($row['harga_awal'])): ?>
+                                                        <s>Rp. <?= number_format($row['harga_awal']) ?></s>
+                                                        <span class="text-white text-bold">Rp. <?= number_format($row['harga']) ?> (Diskon)</span>
+                                                    <?php else: ?>
+                                                        Rp. <?= number_format($row['harga']) ?>
+                                                    <?php endif; ?>
+                                                <?php else: ?>
                                                     <div class="btn btn-sm btn-danger">Barang habis</div>
                                                 <?php endif; ?>
                                             </h6>
 
-                                            <?php if ($this->session->userdata('pelanggan')) : ?>
-                                                <?php if ($row['stok'] > 0) : ?>
-                                                    <button class="btn btn-sm btn-warning addToCartBtn">
+                                            <?php if ($this->session->userdata('pelanggan')): ?>
+                                                <?php if ($row['stok'] > 0): ?>
+                                                    <button class="btn btn-sm btn-warning addToCartBtn" aria-label="Add to cart">
                                                         <i style="font-size: 25px; color: white;" class="bx bxs-cart"></i>
                                                     </button>
                                                 <?php endif; ?>
-                                            <?php else : ?>
+                                            <?php else: ?>
 
                                             <?php endif; ?>
 
@@ -287,6 +378,7 @@
                     <?php } ?>
                 </div>
             </div>
+
 
         </div>
     </section>
@@ -334,14 +426,14 @@
                             Cafe sederhana dengan modal ibu dan bapak.
                         </p>
                         <div class="footer_social">
-                            <a href="">
+                            <a href="https://wa.me/6289618228573?text=Halo%20saya%20ingin%20bertanya" title="Chat via WhatsApp" target="_blank">
                                 <i class="fa fa-whatsapp" aria-hidden="true"></i>
                             </a>
-                            <a href="">
+                            <a href="#" title="link-twitter">
                                 <i class="fa fa-twitter" aria-hidden="true"></i>
                             </a>
 
-                            <a href="">
+                            <a href="#" title="link-instagram">
                                 <i class="fa fa-instagram" aria-hidden="true"></i>
                             </a>
 
@@ -366,11 +458,12 @@
     <!-- footer section -->
 
     <!-- Modal daftar user -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title " id="userModalLabel">Daftar</h5>
+                    <h5 class="modal-title fs-3 fw-bold " id="userModalLabel">Daftar</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span style="font-size: 35px;" class="text-dark" aria-hidden="true">&times;</span>
                     </button>
@@ -379,12 +472,15 @@
                     <!-- Input field di sini -->
                     <form action="<?= base_url('menu/simpanpelanggan') ?>" method="post">
                         <div class="form-group">
-                            <label for="name">Nama</label>
-                            <input type="text" class="form-control" name="nama" id="name" placeholder="Masukkan Nama kamu" pattern="[a-zA-Z\s]+" required>
+                            <label for="nama">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="nama" autocomplete="nama"
+                                placeholder="Masukkan Nama kamu" pattern="[a-zA-Z]{1,10}" maxlength="10" required>
+                            <div class="text-danger mt-1" id="error-message" style=" display: none;"></div>
                         </div>
                         <div class="form-group">
                             <label for="telp">No Telp</label>
-                            <input type="number" class="form-control" id="telp" name="telp" placeholder="No Wa Kamu" required>
+                            <input type="number" class="form-control" id="telp" name="telp" placeholder="No Wa Kamu"
+                                required>
                             <input type="hidden" name="alamat" value="Jakarta">
                         </div>
                 </div>
@@ -400,7 +496,7 @@
 
     <!-- btn to up -->
     <div>
-        <a class="top-btn" href="#">
+        <a class="top-btn" href="#" title="btn">
             <i class="bx bxs-chevrons-up"></i>
         </a>
     </div>
@@ -417,65 +513,373 @@
                 <div class="content-text">
                     <h1>Produk Baru</h1>
                     <h2>Dimsum Ayam & Kopi Susu</h2>
-                    <p style="text-align: justify;">Nikmati kelezatan baru! Dimsum ayam dan kopi susu, paduan sempurna untuk sensasi kuliner yang tak terlupakan. Segera coba!</p>
-                    <a class="daftar-button" href="#" data-toggle="modal" data-target="#userModal">Daftar Untuk Pesan</a>
+                    <p style="text-align: justify;">Nikmati kelezatan baru! Dimsum ayam dan kopi susu, paduan sempurna
+                        untuk sensasi kuliner yang tak terlupakan. Segera coba!</p>
+                    <a class="daftar-button" href="#" data-toggle="modal" data-target="#userModal">Daftar Untuk
+                        Pesan</a>
                 </div>
             </div>
         </div>
 
+        <script src="<?= base_url('vendor2/') ?>js/jquery-3.4.1.min.js"></script>
+
+        <script type="text/javascript">
+            function payWithMidtrans() {
+                $.ajax({
+                    url: '<?= base_url('pembayaran/midtrans') ?>', // Pastikan URL ini benar
+                    method: 'GET',  // Sesuaikan dengan method yang diinginkan, misalnya POST jika perlu
+                    dataType: 'json',  // Mendefinisikan format data yang diharapkan adalah JSON
+                    success: function (response) {
+                        console.log(response);
+                        if (response.snap_token) {
+                            // Menyimpan snap_token di localStorage
+                            localStorage.setItem('snap_token', response.snap_token);
+
+                            // Jika mendapatkan snap_token, tampilkan popup Midtrans
+                            snap.pay(response.snap_token, {
+                                onSuccess: function (result) {
+                                    Swal.fire({
+                                        title: "Pembayaran Berhasil!",
+                                        icon: "success",
+                                        customClass: {
+                                            title: 'my-title',
+                                        }
+                                    });
+
+                                    var pelangganName = <?php echo json_encode(isset($this->session->userdata("pelanggan")['nama']) ? $this->session->userdata("pelanggan")['nama'] : ''); ?>;
+                                    var pelangganId = <?php echo json_encode(isset($this->session->userdata("pelanggan")['id_pelanggan']) ? $this->session->userdata("pelanggan")['id_pelanggan'] : 0); ?>;
+                                    var cartItems = <?php echo json_encode($this->cart->contents()); ?>;
+                                    var total = <?php echo $this->cart->total(); ?>;
+
+                                    var rupiahFormatter = new Intl.NumberFormat('id-ID', {
+                                        style: 'currency',
+                                        currency: 'IDR',
+                                        minimumFractionDigits: 0,  // No decimals
+                                        maximumFractionDigits: 0   // No decimals
+                                    });
+
+                                    var items = [];
+                                    $.each(cartItems, function (index, item) {
+                                        items.push({
+                                            id_produk: item.id,
+                                            nama_produk: item.name,
+                                            jumlah: item.qty,
+                                            harga: item.price,
+                                            sub_total: item.subtotal,
+                                            total: total,
+                                            nama_pelanggan: pelangganName, // Misalnya dari session atau variabel yang ada
+                                            id_pelanggan: pelangganId, // Misalnya dari session atau variabel yang ada
+                                            token: result.transaction_id // Ambil token transaksi dari result
+                                        });
+                                    });
+
+                                    $.ajax({
+                                        url: '<?= base_url('pembayaran/simpan_pesanan') ?>',
+                                        method: 'POST',
+                                        data: { items: items },
+                                        success: function (response) {
+                                            var res = JSON.parse(response);
+                                            if (res.status === 'success') {
+                                                $.ajax({
+                                                    url: '<?= base_url('pembayaran/clear_cart') ?>',
+                                                    method: 'POST',
+                                                    success: function (clearResponse) {
+                                                        // Menampilkan struk sebagai popup SweetAlert2          
+                                                        var receiptHtml = '<p><strong>Nama Pelanggan:</strong> ' + pelangganName + '</p>';
+                                                        receiptHtml += '<table border="2" style="width: 100%; margin-top: 10px; text-align: left; font-size:14px;">';
+                                                        receiptHtml += '<thead><tr><th>Nama Produk</th><th>Jumlah</th><th>Harga</th><th>Subtotal</th></tr></thead>';
+                                                        receiptHtml += '<tbody>';
+
+                                                        $.each(cartItems, function (index, item) {
+                                                            receiptHtml += '<tr>';
+                                                            receiptHtml += '<td>' + item.name + '</td>';
+                                                            receiptHtml += '<td>' + item.qty + '</td>';
+                                                            receiptHtml += '<td>' + rupiahFormatter.format(item.price) + '</td>';
+                                                            receiptHtml += '<td>' + rupiahFormatter.format(item.subtotal) + '</td>';
+                                                            receiptHtml += '</tr>';
+                                                        });
+
+                                                        receiptHtml += '</tbody>';
+                                                        receiptHtml += '</table>';
+                                                        receiptHtml += '<br/>';
+
+                                                        receiptHtml += '<h3><strong>Total:</strong> ' + rupiahFormatter.format(total) + '</h3>'
+                                                        receiptHtml += '<h3><b>Silahkan Screenshot</b></h3> ';
 
 
-        <!-- ads js -->
-        <script>
-            const popup = document.querySelector(".popup");
-            const close = document.querySelector(".close-ads");
-            const overlay = document.querySelector(".overlay");
+                                                        // SweetAlert2 untuk menampilkan struk
+                                                        Swal.fire({
+                                                            title: 'Transaksi Berhasil Silahkan Menunggu!',
+                                                            html: receiptHtml,
+                                                            icon: 'success',
+                                                            confirmButtonText: 'Tutup',
+                                                            customClass: {
+                                                                title: 'my-title',
+                                                            }
 
-            let loggedIn = <?php echo $this->session->userdata('pelanggan') ? 'true' : 'false'; ?>;
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                // Refresh the page when the Confirm button is clicked
+                                                                window.location.reload();
+                                                            }
+                                                        });
 
-            window.onload = function() {
-                setTimeout(function() {
-                    if (!loggedIn) {
-                        popup.classList.add("show");
-                        overlay.classList.add("show");
-                        document.body.style.overflow = 'hidden';
-                    } else {
-                        closePopup();
+
+                                                    },
+                                                    error: function (xhr, status, error) {
+                                                        alert("Terjadi kesalahan saat membersihkan cart.");
+                                                    }
+                                                });
+                                            } else {
+                                                alert("Gagal menyimpan pesanan: " + res.message);
+                                            }
+                                        },
+                                        error: function (xhr, status, error) {
+                                            alert("Terjadi kesalahan saat menyimpan pesanan.");
+                                        }
+                                    });
+                                },
+                                onPending: function (result) {
+                                    Swal.fire({
+                                        title: "Pembayaran Tertunda!",
+                                        text: "Selesaikan Pembayaran Anda ! ",
+                                        icon: "info",
+                                        customClass: {
+                                            title: 'my-title',
+                                        }
+                                    });
+                                    // Menampilkan tombol bayar kembali berdasarkan token yang sudah ada
+                                    showRetryPaymentButton(response.snap_token);
+
+
+                                },
+                                onError: function (result) {
+                                    alert("Pembayaran Gagal! ID: " + result.transaction_id);
+
+                                }
+                            });
+                        } else {
+                            alert("Terjadi kesalahan. Silakan coba lagi.");
+                        }
+
+                    },
+                    error: function (xhr, status, error) {
+                        // Tangani jika terjadi kesalahan saat AJAX request
+                        console.error("Status: " + status);
+                        console.error("Error: " + error);
+                        console.error("Response: " + xhr.responseText);
+
+                        // Cek apakah respons bukan JSON dan merupakan halaman HTML (misalnya error halaman)
+                        if (xhr.responseText.includes("<html>")) {
+                            alert("Terjadi kesalahan di server. Pastikan API endpoint benar.");
+                        } else {
+                            alert("Terjadi kesalahan: " + error);
+                        }
                     }
-                }, 500);
-            };
-
-            close.addEventListener("click", () => {
-                closePopup();
-            });
-
-            daftarButton.addEventListener("click", () => { // Tambahkan event listener untuk tombol "Daftar"
-                closePopup();
-            });
-
-            document.addEventListener("click", (event) => {
-                if (!popup.contains(event.target) && event.target !== overlay) {
-                    closePopup();
-                }
-            });
-
-            function closePopup() {
-                popup.classList.remove("show");
-                overlay.classList.remove("show");
-                overlay.style.display = 'none';
-                popup.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                });
             }
+
+            $(document).ready(function () {
+
+                $('#buttonClear').hide();
+
+                // Fungsi untuk menangani klik pada tombol clear
+                $('#buttonClear').off('click').on('click', function () {
+                    $.ajax({
+                        url: '<?= base_url('pembayaran/clear_button') ?>',
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status === 'success') {
+                                // Ganti alert dengan SweetAlert
+                                Swal.fire({
+                                    title: "Transaksi Ulang Berhasil",
+                                    icon: "success",
+                                    text: "Keranjang dikosongkan! ",
+                                    customClass: {
+                                        title: 'my-title',
+                                    }
+                                }).then(() => {
+                                    // Menyembunyikan tombol setelah proses selesai
+                                    $('#buttonClear').hide();
+                                    // Melakukan refresh halaman
+                                    location.reload();
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log('AJAX Error: ' + status + error);
+                        }
+                    });
+                });
+            });
+
+            // Fungsi untuk menampilkan tombol retry jika pembayaran pending
+            function showRetryPaymentButton(token) {
+                // Menyembunyikan tombol pembayaran yang lama (jika ada)
+                $('#payButton').hide();
+                $('#buttonClear').show();
+
+                // Menampilkan tombol untuk bayar kembali
+                $('#retryButton').show().off('click').on('click', function () {
+                    // Menggunakan snap_token yang disimpan untuk mencoba pembayaran ulang
+                    snap.pay(token, {
+                        onSuccess: function (result) {
+                            Swal.fire({
+                                title: "Pembayaran Berhasil!",
+                                icon: "success",
+                                customClass: {
+                                    title: 'my-title',
+                                }
+                            });
+
+                            var pelangganName = <?php echo json_encode(isset($this->session->userdata("pelanggan")['nama']) ? $this->session->userdata("pelanggan")['nama'] : ''); ?>;
+                            var pelangganId = <?php echo json_encode(isset($this->session->userdata("pelanggan")['id_pelanggan']) ? $this->session->userdata("pelanggan")['id_pelanggan'] : 0); ?>;
+                            var cartItems = <?php echo json_encode($this->cart->contents()); ?>;
+                            var total = <?php echo $this->cart->total(); ?>;
+
+                            var rupiahFormatter = new Intl.NumberFormat('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR',
+                                minimumFractionDigits: 0,  // No decimals
+                                maximumFractionDigits: 0   // No decimals
+                            });
+
+                            var items = [];
+                            $.each(cartItems, function (index, item) {
+                                items.push({
+                                    id_produk: item.id,
+                                    nama_produk: item.name,
+                                    jumlah: item.qty,
+                                    harga: item.price,
+                                    sub_total: item.subtotal,
+                                    total: total,
+                                    nama_pelanggan: pelangganName, // Misalnya dari session atau variabel yang ada
+                                    id_pelanggan: pelangganId, // Misalnya dari session atau variabel yang ada
+                                    token: result.transaction_id // Ambil token transaksi dari result
+                                });
+                            });
+
+                            $.ajax({
+                                url: '<?= base_url('pembayaran/simpan_pesanan') ?>',
+                                method: 'POST',
+                                data: { items: items },
+                                success: function (response) {
+                                    var res = JSON.parse(response);
+                                    if (res.status === 'success') {
+                                        $.ajax({
+                                            url: '<?= base_url('pembayaran/clear_cart') ?>',
+                                            method: 'POST',
+                                            success: function (clearResponse) {
+                                                // Menampilkan struk sebagai popup SweetAlert2          
+                                                var receiptHtml = '<p><strong>Nama Pelanggan:</strong> ' + pelangganName + '</p>';
+                                                receiptHtml += '<table border="2" style="width: 100%; margin-top: 10px; text-align: left; font-size:14px;">';
+                                                receiptHtml += '<thead><tr><th>Nama Produk</th><th>Jumlah</th><th>Harga</th><th>Subtotal</th></tr></thead>';
+                                                receiptHtml += '<tbody>';
+
+                                                $.each(cartItems, function (index, item) {
+                                                    receiptHtml += '<tr>';
+                                                    receiptHtml += '<td>' + item.name + '</td>';
+                                                    receiptHtml += '<td>' + item.qty + '</td>';
+                                                    receiptHtml += '<td>' + rupiahFormatter.format(item.price) + '</td>';
+                                                    receiptHtml += '<td>' + rupiahFormatter.format(item.subtotal) + '</td>';
+                                                    receiptHtml += '</tr>';
+                                                });
+
+                                                receiptHtml += '</tbody>';
+                                                receiptHtml += '</table>';
+                                                receiptHtml += '<br/>';
+
+                                                receiptHtml += '<h3><strong>Total:</strong> ' + rupiahFormatter.format(total) + '</h3>'
+                                                receiptHtml += '<h3><b>Silahkan Screenshot</b></h3> ';
+
+
+                                                // SweetAlert2 untuk menampilkan struk
+                                                Swal.fire({
+                                                    title: 'Transaksi Berhasil Silahkan Menunggu!',
+                                                    html: receiptHtml,
+                                                    icon: 'success',
+                                                    confirmButtonText: 'Tutup',
+                                                    customClass: {
+                                                        title: 'my-title',
+                                                    }
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // Refresh the page when the Confirm button is clicked
+                                                        window.location.reload();
+                                                    }
+                                                });
+
+
+                                            },
+                                            error: function (xhr, status, error) {
+                                                alert("Terjadi kesalahan saat membersihkan cart.");
+                                            }
+                                        });
+                                    } else {
+                                        alert("Gagal menyimpan pesanan: " + res.message);
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    alert("Terjadi kesalahan saat menyimpan pesanan.");
+                                }
+                            });
+                        },
+                        onPending: function (result) {
+                            alert("Pembayaran Tertunda! ID: " + result.transaction_id);
+                        },
+                        onError: function (result) {
+                            alert("Pembayaran Gagal! ID: " + result.transaction_id);
+                        }
+                    });
+                });
+
+
+            }
+
+            // Jika halaman dimuat, periksa apakah ada token yang tersimpan di localStorage
+            $(document).ready(function () {
+                var storedToken = localStorage.getItem('snap_token');
+                if (storedToken) {
+                    // Jika ada token yang tersimpan, tampilkan tombol untuk mencoba pembayaran ulang
+                    showRetryPaymentButton(storedToken);
+                }
+
+                // Event listener for delete cart button
+                $('.deleteCartBtn').on('click', function () {
+                    // Clear the stored token if it exists
+                    localStorage.removeItem('snap_token');
+                });
+
+                // Event listener for add to cart button
+                $('.addToCartBtn').on('click', function () {
+                    // Clear the stored token if it exists
+                    localStorage.removeItem('snap_token');
+                });
+            });
+
         </script>
+
+
+        <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js"
+            data-client-key="Mid-client-fF-G1hcvlXSJXcp6"></script>
+
+
+
+        <!-- production   Mid-client-fF-G1hcvlXSJXcp6 -->
+        <!-- sandbox SB-Mid-client-ZNNndb8J6_Q4Ql4S -->
+
+        <!-- https://app.sandbox.midtrans.com/snap/snap.js -->
+
+        <script src="<?= base_url('vendor2/') ?>js/jquery-3.4.1.min.js"></script>
+
 
         <!-- sweet alert -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <!-- jQery -->
-        <script src="<?= base_url('vendor2/') ?>js/jquery-3.4.1.min.js"></script>
         <!-- popper js -->
-        <script src="<?= base_url('vendor2/') ?>https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
+
         <!-- bootstrap js -->
         <script src="<?= base_url('vendor2/') ?>js/bootstrap.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -484,10 +888,11 @@
         <!-- isotope js -->
         <script src="https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js"></script>
 
+
         <!-- isotope code-->
         <script>
-            $(window).on('load', function() {
-                $('.filters_menu li').click(function() {
+            $(window).on('load', function () {
+                $('.filters_menu li').click(function () {
                     $('.filters_menu li').removeClass('active');
                     $(this).addClass('active');
 
@@ -507,18 +912,15 @@
             });
         </script>
 
-        <!-- custom js -->
-        <script src="<?= base_url('vendor2/') ?>js/custom.js"></script>
-
         <!-- kode sweetalert2 -->
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 // Memilih semua tombol dengan kelas addToCartBtn
                 var addToCartButtons = document.querySelectorAll('.addToCartBtn');
 
                 // Menambahkan event listener ke setiap tombol
-                addToCartButtons.forEach(function(button) {
-                    button.addEventListener('click', function() {
+                addToCartButtons.forEach(function (button) {
+                    button.addEventListener('click', function () {
                         // Logika untuk menambahkan produk ke keranjang disini
                         // Misalnya, mungkin Anda ingin menampilkan pesan Toast
                         showToast();
@@ -552,16 +954,122 @@
         <!-- konfirmasi pesanan js -->
         <script>
             function cekPesanan() {
-                var konfirmasi = confirm('Apakah pesanan sudah sesuai?');
-                if (konfirmasi) {
-                    // Jika pengguna menekan OK, izinkan eksekusi kode
-                    return true;
-                } else {
-                    // Jika pengguna menekan Cancel, hentikan eksekusi kode
-                    return false;
-                }
+                Swal.fire({
+                    title: "<strong>Konfirmasi Pesanan</strong>",
+                    html: ` Apakah Pesanan Sudah  <b>Sesuai ?</b>,
+                            Karena Pesanan Yang Sudah dipesan tidak bisa di <b>Cancel</b>
+                            `,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, pesankan!",
+                    cancelButtonText: "Batal",
+                    customClass: {
+                        title: 'my-title',
+
+                    }
+
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Tampilkan pesan bahwa pesanan sedang diproses
+                        Swal.fire({
+                            title: "Pesanan Terkirim!",
+                            html: ` Pesanan Anda sedang diproses , <br>
+                            <b>Silahkan Menunggu Terimakasih....</b>
+                            `,
+                            icon: "success",
+                            customClass: {
+                                title: 'my-title',
+
+                            }
+                        }).then(() => {
+                            document.getElementById('pesanForm').submit(); // Mengirim form
+                        });
+                    }
+                });
             }
         </script>
+
+        <!-- sweet alert pay with midtrans -->
+        <script>
+            function showConfirmation() {
+                // Menampilkan SweetAlert konfirmasi
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda akan melanjutkan pembayaran menggunakan Midtrans.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: 'Ya, bayar sekarang!',
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        title: 'my-title',
+
+                    }
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Jika tombol "Ya, bayar sekarang!" diklik
+                        payWithMidtrans();  // Jalankan fungsi pembayaran
+                    } else {
+                        // Jika tombol "Batal" diklik
+                        Swal.fire({
+                            title: "Pembayaran dibatalkan!",
+
+                            icon: "info",
+                            customClass: {
+                                title: 'my-title',
+
+                            }
+                        })
+                    }
+                });
+            }
+        </script>
+
+        <!-- ads js -->
+        <script>
+            const popup = document.querySelector(".popup");
+            const close = document.querySelector(".close-ads");
+            const overlay = document.querySelector(".overlay");
+
+            let loggedIn = <?php echo $this->session->userdata('pelanggan') ? 'true' : 'false'; ?>;
+
+            window.onload = function () {
+                setTimeout(function () {
+                    if (!loggedIn) {
+                        popup.classList.add("show");
+                        overlay.classList.add("show");
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        closePopup();
+                    }
+                }, 500);
+            };
+
+            close.addEventListener("click", () => {
+                closePopup();
+            });
+
+
+            document.addEventListener("click", (event) => {
+                if (!popup.contains(event.target) && event.target !== overlay) {
+                    closePopup();
+                }
+            });
+
+            function closePopup() {
+                popup.classList.remove("show");
+                overlay.classList.remove("show");
+                overlay.style.display = 'none';
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        </script>
+
 
         <!-- to up btn -->
         <script>
@@ -577,7 +1085,7 @@
 
         <!-- max no telp -->
         <script>
-            document.getElementById("telp").addEventListener("input", function() {
+            document.getElementById("telp").addEventListener("input", function () {
                 var maxLength = 12;
                 var minLength = 10;
 
@@ -591,6 +1099,22 @@
                     this.setCustomValidity("Minimal 10 digit angka.");
                 } else {
                     this.setCustomValidity("");
+                }
+            });
+        </script>
+
+        <!-- validasi -->
+        <script>
+            const input = document.getElementById('nama');
+            const errorMessage = document.getElementById('error-message');
+
+            input.addEventListener('input', function () {
+                if (input.validity.patternMismatch || input.validity.tooLong) {
+                    errorMessage.textContent = 'Nama harus berupa huruf bukan simbol';
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.textContent = '';
+                    errorMessage.style.display = 'none';
                 }
             });
         </script>

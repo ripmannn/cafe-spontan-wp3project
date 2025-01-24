@@ -41,6 +41,14 @@
                     <span class="input-group-text">Gambar Produk</span>
                     <input type="file" class="form-control" name="gambar" value="<?= $produk->gambar ?>">
                 </div>
+                
+                <div class="input-group">
+                    <span class="input-group-text">Promo</span>
+                    <select name="promo" class="form-control">
+                        <option value="null" <?php if ($produk->promo === 'null') echo 'selected'; ?>>Tidak Ada Promo</option>
+                        <option value="1" <?php if ($produk->promo === '1') echo 'selected'; ?>>Ada Promo</option>
+                    </select>
+                </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>

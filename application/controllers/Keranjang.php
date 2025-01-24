@@ -11,10 +11,13 @@ class Keranjang extends CI_Controller
             'qty'     => $this->input->post('qty'),
             'price'   => $this->input->post('price'),
             'name'    => $this->input->post('name'),
+            'id_pelanggan'  => $this->input->post('id_pelanggan')
 
 
         );
+   
         $this->cart->insert($data);
+
 
 
         redirect($redirect_page, 'refresh');

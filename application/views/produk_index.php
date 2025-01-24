@@ -21,26 +21,26 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col mb-3">
-                                <label class="form-label">Nama</label>
-                                <input type="text" name="nama" class="form-control" placeholder="Nama Produk" required>
+                                <label class="form-label" for="nama" >Nama</label>
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Produk" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">Kode Produk</label>
-                                <input type="text" name="kode_produk" class="form-control" placeholder="Kode Produk" required>
+                                <label class="form-label" for="kode_produk">Kode Produk</label>
+                                <input type="text" name="kode_produk" id="kode_produk" class="form-control" placeholder="Kode Produk" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">Keterangan Produk</label>
-                                <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" required>
+                                <label class="form-label" for="keterangan">Keterangan Produk</label>
+                                <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">Jenis Produk</label>
-                                <select name="jenis"  class="form-control" >
+                                <label class="form-label" for="jenis">Jenis Produk</label>
+                                <select name="jenis" id="jenis" class="form-control" >
                                     <option value="makanan">Makanan</option>
                                     <option value="minuman">Minuman</option>
                                 </select>
@@ -48,20 +48,20 @@
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">Stok Barang</label>
-                                <input type="number" name="stok" class="form-control" placeholder="Stok" required>
+                                <label class="form-label" for="stok" >Stok Barang</label>
+                                <input type="number" name="stok" id="stok" class="form-control" placeholder="Stok" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">Harga Barang</label>
-                                <input type="number" name="harga" class="form-control" placeholder=Harga required>
+                                <label class="form-label" for="harga" >Harga Barang</label>
+                                <input type="number" name="harga" id="harga" class="form-control" placeholder=Harga required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label class="form-label">gambar Barang</label>
-                                <input type="file" name="gambar" class="form-control">
+                                <label class="form-label" for="gambar" >gambar Barang</label>
+                                <input type="file" name="gambar" id="gambar" class="form-control">
                             </div>
                         </div>
 
@@ -77,13 +77,13 @@
         </div>
     </div>
 </div>
-<div class="card">
+<div class="card p-3">
     <h5 class="card-header">Produk</h5>
     <div class="table-responsive text-nowrap">
         <table id="myTable" class="table">
             <thead>
                 <tr>
-                    <th>NO</th>
+                    <th style="text-align: left;" >NO</th>
                     <th>Nama</th>
                     <th>Kode Produk</th>
                     <th style="text-align: left;" >Stok</th>
@@ -96,7 +96,7 @@
                 <?php $no = 1;
                 foreach ($produk as $p) {  ?>
                     <tr>
-                        <td><?= $no ?></td>
+                        <td style="text-align: left;"><?= $no ?></td>
                         <td><?= $p['nama'] ?></td>
                         <td><?= $p['kode_produk'] ?></td>
                         <td style="text-align: left;" ><?= $p['stok'] ?></td>
@@ -127,8 +127,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col mb-3">
-                            <label class="form-label">Stok</label>
-                            <select name="status" class="form-control">
+                            <label class="form-label" for="status" >Stok</label>
+                            <select name="status" id="status" class="form-control">
                                 <option value="Ada">Ada</option>
                                 <option value="Habis">Habis</option>
                                 <option value="Semua">Semua</option>

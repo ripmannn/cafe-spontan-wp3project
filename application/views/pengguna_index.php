@@ -18,27 +18,28 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col mb-3">
-                                <label class="form-label">Username</label>
-                                <input type="text" name="username" class="form-control" placeholder="Username" required>
+                                <label class="form-label" for="username">Username</label>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="Username" autocomplete="username" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-0">
-                                <label class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                <label class="form-label" for="password" >Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
                             </div>
                             <div class="col mb-0">
-                                <label class="form-label">Level</label>
-                                <select name="level" class="form-control">
+                                <label class="form-label" for="level" >Level</label>
+                                <select name="level" id="level" class="form-control">
                                     <option value="Admin">Admin</option>
                                     <option value="Kasir">Kasir</option>
+                                    <option value="Dapur">Dapur</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col mb-3">
-                                <label class="form-label">Nama</label>
-                                <input type="text" name="nama" class="form-control" placeholder="Nama Anda" required>
+                                <label class="form-label" for="nama">Nama</label>
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Anda" required>
                             </div>
                         </div>
                     </div>

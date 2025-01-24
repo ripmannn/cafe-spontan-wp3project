@@ -10,7 +10,7 @@
 <body>
     ===========================<br>
     <b>Cafe Spontan</b> <br>
-    Jl. Latu Menten Season City <br>
+    Jl. Kemanggisan Utama Raya <br>
     Telp 0815-1095-8001 (Azriel) <br>
     =========================== <br>
     
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>Pelanggan</td>
-            <td> : <?= $penjualan->nama; ?></td>
+            <td> : <?= !empty($penjualan->nama) ? $penjualan->nama : 'Fulan'; ?></td>
         </tr>
     </table>
     =========================== <br>

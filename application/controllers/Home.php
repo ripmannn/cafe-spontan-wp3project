@@ -5,7 +5,8 @@ class Home extends CI_Controller
 {
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct(); 
+		$this->load->model('Menu_model');
 		if ($this->session->userdata('level') == null) {
 			redirect('auth');
 		}
@@ -29,6 +30,7 @@ class Home extends CI_Controller
 		$bulan_ini = $this->db->get()->row()->total;
 
 		$produk = $this->db->from('produk')->count_all_results();
+		$katering = $this->Menu_model->getMenuCount();
 
 		if($hari_ini == null){$hari_ini = 0;}
 		if($bulan_ini == null){$bulan_ini = 0;}
@@ -41,6 +43,7 @@ class Home extends CI_Controller
 			'transaksi' => $transaksi,
 			'bulan_ini' => $bulan_ini,
 			'produk' => $produk,
+			'katering' => $katering
 		);
 		$this->template->load('template', 'beranda', $data);
 	}

@@ -5,8 +5,10 @@
             <div class="card-body demo-vertical-spacing demo-only-element">
                 <div class="input-group">
                     <span class="input-group-text">Username</span>
-                    <input type="text" class="form-control" value="<?= $user->username ?>" readonly>
+                    <input type="text" class="form-control" id="username" name="username" value="<?= $user->username ?>"
+                        readonly autocomplete="username">
                     <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+
                 </div>
 
                 <div class="input-group">
@@ -17,8 +19,12 @@
                 <div class="input-group">
                     <span class="input-group-text">Level</span>
                     <select name="level" class="form-control" required>
-                        <option value="Admin" <?php if($user->level == 'Admin'){echo "selected";} ?> >Admin</option>
-                        <option value="Kasir" <?php if($user->level == 'Kasir'){echo "selected";} ?>>Kasir</option>
+                        <option value="Admin" <?php if ($user->level == 'Admin') {
+                            echo "selected";
+                        } ?>>Admin</option>
+                        <option value="Kasir" <?php if ($user->level == 'Kasir') {
+                            echo "selected";
+                        } ?>>Kasir</option>
                     </select>
                 </div>
 
@@ -27,4 +33,3 @@
         </div>
     </div>
 </form>
-
